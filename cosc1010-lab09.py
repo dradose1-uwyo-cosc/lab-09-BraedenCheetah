@@ -104,7 +104,11 @@ Your total price is $12.9
 Would you like to place an order? exit to exit
 """
 
+# I can start by making a class for pizza and set all of the 'def' to be related to self
+
 class Pizza:
+
+# This will be using  '__init__' so that I can set the default topping, cheese
 
     def __init__(self, size, sauce = "red"):
 
@@ -117,6 +121,8 @@ class Pizza:
     def getSize(self):
 
         return self.size
+
+# I can force the size to be 10 if the user inputs something lower than 10
 
     def setSize(self, size):
 
@@ -133,7 +139,7 @@ class Pizza:
 
         return self.sauce
 
-    def addToppings(self, *toppings):
+    def addToppings(self, * toppings):
         
         self.toppings.extend(toppings)
 
@@ -141,9 +147,13 @@ class Pizza:
 
         return self.toppings
 
+# I can use the length of list input by user to create the number of toppings asked for
+
     def getAmountOfToppings(self):
 
         return len(self.toppings)
+
+# I can do a separate class for the pizzeria and add in the values to be used later for pricing
 
 class Pizzeria:
 
@@ -159,9 +169,9 @@ class Pizzeria:
 
     def placeOrder(self):
 
-        size = int(input("Please eneter the size of the pizza you would like. The minimum size we can do is 10 inches.\n"))
+        size = int(input("Please eneter the size (inches) of the pizza you would like. The minimum size we can do is 10 inches.\n"))
 
-        sauce = input("What kind of sauce would you like? It will default to red sauce if there is no other preference.\n")
+        sauce = input("What kind of sauce would you like? (It will default to red sauce if there is no other preference)\n")
 
         if sauce == "":
 
@@ -170,7 +180,9 @@ class Pizzeria:
         toppings = []
 
         print("Please enter the toppings you would like. Leave blank and enter when done.\n")
-        
+
+# I can mske a while statement to keep looping unless the user leaves the input blank and then enters
+
         while True:
 
             topping = input()
@@ -181,17 +193,23 @@ class Pizzeria:
 
             toppings.append(topping)
 
+# This is all swapping and assigning values to the separate elements within the code
+
         pizza = Pizza(size, sauce)
 
-        pizza.adddToppings(*toppings)
+        pizza.addToppings(*toppings)
 
         self.pizzas.append(pizza)
 
         self.orders += 1
 
+# I can use this to find the price based on size and toppings to use for the sum later on
+
     def getPrice(self, pizza):
 
         return (pizza.getSize() * Pizzeria.price_per_inch) + (pizza.getAmountOfToppings() * Pizzeria.price_per_topping)
+
+# This is to be able to give the user a 'recipt' of the pizza ordered 
 
     def getRecipt(self, pizza):
 
@@ -201,21 +219,25 @@ class Pizzeria:
 
         summed_price = size_price + topping_price
 
-        print(f"You ordered a {pizza.getSize()} pizza with {pizza.getSauce()} sauce and these toppings:")
+        print(f"You ordered a {pizza.getSize()} inch pizza with {pizza.getSauce()} sauce and these toppings:")
+
+# I have to do this strange printing method for the toppings in order to recreate what it looked like in the example output
 
         for topping in pizza.getToppings():
 
-            print(f"                                                                       {topping}")
+            print(f"                                                          {topping}")
 
-        print(f"You have ordered a {pizza.getSize()} for ${size_price}")
+        print(f"You have ordered a {pizza.getSize()} inch pizza for ${size_price}.")
 
-        print(f"You got it with {pizza.getAmountOfToppings} topping(s) for ${topping_price}")
+        print(f"You got it with {pizza.getAmountOfToppings()} topping(s) for ${topping_price}.")
 
-        print(f"Your total price of the pizza will be ${summed_price}")
+        print(f"Your total price of the pizza will be ${summed_price}.")
 
     def getNumberOfOrders(self):
 
         return self.orders
+
+# I can use the main as the running codespace and have a while loop so that the program keeps promting the user, if the so wish
 
 def main():
 
@@ -229,9 +251,17 @@ def main():
 
             break
 
+        elif order_input == "no":
+
+            break
+
         pizzeria.placeOrder()
 
-    print(f"You have placed {pizzeria.getNumberOfOrders} orders")
+        pizza = pizzeria.pizzas[-1]
+
+        pizzeria.getRecipt(pizza)
+
+    print(f"You have placed {pizzeria.getNumberOfOrders()} orders")
 
 if __name__ == "__main__":
 
