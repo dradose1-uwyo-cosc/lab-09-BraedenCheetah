@@ -1,8 +1,8 @@
-# Your Name Here
+# Braeden Kirby
 # UWYO COSC 1010
-# Submission Date
-# Lab XX
-# Lab Section:
+# 11/12/2024
+# Lab 09
+# Lab Section: 13
 # Sources, people worked with, help given to:
 # Your
 # Comments
@@ -103,3 +103,136 @@ Your total price is $12.9
 
 Would you like to place an order? exit to exit
 """
+
+class Pizza:
+
+    def __init__(self, size, sauce = "red"):
+
+        self.setSize(size)
+
+        self.sauce = sauce
+
+        self.toppings = ["cheese"] 
+
+    def getSize(self):
+
+        return self.size
+
+    def setSize(self, size):
+
+        if size > 10:
+
+            self.size = size
+
+        else:
+
+            self.size = 10
+
+
+    def getSauce(self):
+
+        return self.sauce
+
+    def addToppings(self, *toppings):
+        
+        self.toppings.extend(toppings)
+
+    def getToppings(self):
+
+        return self.toppings
+
+    def getAmountOfToppings(self):
+
+        return len(self.toppings)
+
+class Pizzeria:
+
+    price_per_topping = 0.30
+
+    price_per_inch = 0.60
+
+    def __init__(self):
+
+        self.orders = 0
+
+        self.pizzas = []
+
+    def placeOrder(self):
+
+        size = int(input("Please eneter the size of the pizza you would like. The minimum size we can do is 10 inches.\n"))
+
+        sauce = input("What kind of sauce would you like? It will default to red sauce if there is no other preference.\n")
+
+        if sauce == "":
+
+            sauce = "red"
+
+        toppings = []
+
+        print("Please enter the toppings you would like. Leave blank and enter when done.\n")
+        
+        while True:
+
+            topping = input()
+
+            if topping == "":
+
+                break
+
+            toppings.append(topping)
+
+        pizza = Pizza(size, sauce)
+
+        pizza.adddToppings(*toppings)
+
+        self.pizzas.append(pizza)
+
+        self.orders += 1
+
+    def getPrice(self, pizza):
+
+        return (pizza.getSize() * Pizzeria.price_per_inch) + (pizza.getAmountOfToppings() * Pizzeria.price_per_topping)
+
+    def getRecipt(self, pizza):
+
+        size_price = pizza.getSize() * Pizzeria.price_per_inch
+
+        topping_price = pizza.getAmountOfToppings() * Pizzeria.price_per_topping
+
+        summed_price = size_price + topping_price
+
+        print(f"You ordered a {pizza.getSize()} pizza with {pizza.getSauce()} sauce and these toppings:")
+
+        for topping in pizza.getToppings():
+
+            print(f"                                                                       {topping}")
+
+        print(f"You have ordered a {pizza.getSize()} for ${size_price}")
+
+        print(f"You got it with {pizza.getAmountOfToppings} topping(s) for ${topping_price}")
+
+        print(f"Your total price of the pizza will be ${summed_price}")
+
+    def getNumberOfOrders(self):
+
+        return self.orders
+
+def main():
+
+    pizzeria = Pizzeria()
+
+    while True:
+
+        order_input = input("Would you like to place an order for pizza? (Enter 'exit' to exit)\n").lower()
+
+        if order_input == "exit":
+
+            break
+
+        pizzeria.placeOrder()
+
+    print(f"You have placed {pizzeria.getNumberOfOrders} orders")
+
+if __name__ == "__main__":
+
+    main()
