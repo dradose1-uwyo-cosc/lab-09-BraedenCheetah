@@ -169,7 +169,7 @@ class Pizzeria:
 
     def placeOrder(self):
 
-        size = int(input("Please eneter the size (inches) of the pizza you would like. The minimum size we can do is 10 inches.\n"))
+        size = int(input("Please enter the size (inches) of the pizza you would like. The minimum size we can do is 10 inches.\n"))
 
         sauce = input("What kind of sauce would you like? (It will default to red sauce if there is no other preference)\n")
 
@@ -261,7 +261,7 @@ def main():
 
         pizzeria.getRecipt(pizza)
 
-    print(f"You have placed {pizzeria.getNumberOfOrders()} orders")
+    print(f"You have placed {pizzeria.getNumberOfOrders()} order(s)")
 
 if __name__ == "__main__":
 
